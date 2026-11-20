@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amina Fatima · Portfolio</title>
+<meta name="description" content="Amina Fatima builds AI products end to end: scoping what users need, shipping it, and measuring whether it works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --ink:#1c1b1a; --muted:#5f5b56; --line:#e7e2db;
+  --accent:#1a5fd6; --accent-soft:#e8effc; --chip:#f2eee8; --good:#1f7a4d;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413; --surface:#1d1c1b; --ink:#f1eee9; --muted:#a9a49d; --line:#2f2d2a;
+    --accent:#7aa7ff; --accent-soft:#1e2a40; --chip:#262523; --good:#5ec48f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1d1c1b; --ink:#f1eee9; --muted:#a9a49d; --line:#2f2d2a;
+  --accent:#7aa7ff; --accent-soft:#1e2a40; --chip:#262523; --good:#5ec48f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.2;margin:0}
+h2{font-size:1.75rem;margin-bottom:6px}
+.kicker{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+.lede{color:var(--muted);margin:0 0 28px;max-width:640px}
+section{padding:64px 0;border-top:1px solid var(--line)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+nav .brand{font-family:Fraunces,Georgia,serif;font-weight:600;color:var(--ink);font-size:1.05rem}
+nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;font-size:.92rem}
+nav ul a{color:var(--muted)}
+nav ul a:hover{color:var(--ink);text-decoration:none}
+@media (max-width:640px){nav ul{display:none}}
+
+/* hero */
+.hero{padding:72px 0 56px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.4rem);letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.sub{font-size:1.15rem;color:var(--muted);max-width:620px;margin:18px 0 26px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-weight:500;font-size:.95rem;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn:hover{text-decoration:none;border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0d1626}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0d1626}}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--muted);margin-bottom:22px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.6rem;font-weight:600}
+.stat span{font-size:.85rem;color:var(--muted)}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.principle{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.principle .n{font-family:Fraunces,Georgia,serif;color:var(--accent);font-size:1.1rem}
+.principle h3{font-size:1.1rem;margin:6px 0 6px}
+.principle p{margin:0;color:var(--muted);font-size:.94rem}
+@media (max-width:760px){.principles{grid-template-columns:1fr}}
+
+/* case studies */
+.case{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:20px}
+.case header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.case h3{font-size:1.45rem}
+.case .meta{font-size:.85rem;color:var(--muted);margin-top:4px}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 28px;margin-top:8px}
+@media (max-width:720px){.grid4{grid-template-columns:1fr}}
+.grid4 h4{margin:0 0 4px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.grid4 p,.grid4 ul{margin:0;font-size:.95rem}
+.grid4 ul{padding-left:18px}
+.grid4 li{margin-bottom:4px}
+.metrics{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:120px}
+.metric b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.3rem}
+.metric span{font-size:.8rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{font-size:.78rem;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:18px 0 6px;font-size:.84rem}
+.flow .node{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px}
+.flow .node.hl{border-color:var(--accent);color:var(--accent)}
+.flow .arr{color:var(--muted)}
+
+.mini{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media (max-width:720px){.mini{grid-template-columns:1fr}}
+.mini .case{margin:0;padding:22px}
+.mini .case h3{font-size:1.15rem}
+.mini p{margin:8px 0 0;color:var(--muted);font-size:.94rem}
+
+/* timeline */
+.tl{position:relative;padding-left:24px}
+.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:28px}
+.tl-item::before{content:"";position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.tl-item h3{font-size:1.1rem}
+.tl-item .meta{font-size:.86rem;color:var(--muted);margin:2px 0 6px}
+.tl-item ul{margin:0;padding-left:18px;font-size:.95rem}
+.tl-item li{margin-bottom:4px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){.two{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{font-size:1.1rem;margin-bottom:8px}
+.card p,.card ul{margin:0;font-size:.95rem}
+.card ul{padding-left:18px}
+.card li{margin-bottom:6px}
+.skills dt{font-weight:600;font-size:.9rem;margin-top:14px}
+.skills dt:first-child{margin-top:0}
+.skills dd{margin:6px 0 0}
+
+.contact{text-align:center;padding:80px 0}
+.contact h2{font-size:2rem}
+.contact p{color:var(--muted);max-width:520px;margin:10px auto 26px}
+.contact .btns{justify-content:center}
+footer{border-top:1px solid var(--line);padding:22px 0;font-size:.84rem;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.theme-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:.82rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Amina Fatima</a>
+    <ul>
+      <li><a href="#how">How I work</a></li>
+      <li><a href="#work">Case studies</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="status"><i></i>Final-year B.Tech, graduating May 2027 · Open to Associate Product Manager roles</div>
+    <h1>I build AI products<br>from <em>the user's question</em><br>to the shipped answer.</h1>
+    <p class="sub">I start with what people need to know, scope the smallest thing that answers it, ship it, and measure whether it works. Right now I'm building an AI research assistant for a business team at Tellyflow.</p>
+    <div class="btns">
+      <a class="btn primary" href="#work">See case studies</a>
+      <a class="btn" href="https://www.linkedin.com/in/amina-fatima-760787227" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/aminaatmit-cpu" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="mailto:aminaatmit@gmail.com">Email me</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span>internships across AI, energy and software</span></div>
+      <div class="stat"><b>4</b><span>AI and data products built</span></div>
+      <div class="stat"><b>0</b><span>duplicate records on re-run, across 43 ingested docs</span></div>
+      <div class="stat"><b>8.2/10</b><span>CGPA, Aligarh Muslim University</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <div class="kicker">How I work</div>
+    <h2>Three habits I bring to every product</h2>
+    <p class="lede">Picked up from shipping real software weekly, and from an engineering degree where a wrong number has physical consequences.</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="n">01</div>
+        <h3>Work back from the question</h3>
+        <p>Before writing code, I write down the questions users actually ask. At Tellyflow I designed the database schema backwards from the answers the business team needed.</p>
+      </div>
+      <div class="principle">
+        <div class="n">02</div>
+        <h3>Define success before building</h3>
+        <p>An AI feature without a metric is a demo. I set up repeatable evaluations that score runs against expected results and track pass rates release to release.</p>
+      </div>
+      <div class="principle">
+        <div class="n">03</div>
+        <h3>Trust is a feature</h3>
+        <p>Reliability and privacy come before new features: least-privilege access, no surprise data storage, and graceful failure instead of crashes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="kicker">Case studies</div>
+    <h2>Selected work</h2>
+    <p class="lede">Each one framed the way I think about it: the problem, who it's for, the decisions I made, and how I know it works.</p>
+
+    <article class="case">
+      <header>
+        <div>
+          <h3>Prospect Intelligence</h3>
+          <div class="meta">Data &amp; AI Intern · Tellyflow Communication · Sep 2026 – present</div>
+        </div>
+        <span class="tag">Internal AI product</span>
+      </header>
+      <div class="grid4">
+        <div><h4>Problem</h4><p>The business team needed to know what 15–20 target companies were hiring for, announcing and prioritising. The answers were buried across 200+ unstructured public documents.</p></div>
+        <div><h4>Users</h4><p>Sales and business-development staff who want a quick, sourced answer instead of hours of reading.</p></div>
+        <div><h4>What I did</h4>
+          <ul>
+            <li>Turned the team's questions into requirements, then sourced and profiled a 68-document corpus by hand.</li>
+            <li>Designed the PostgreSQL schema backwards from the answers users need.</li>
+            <li>Now adding hybrid retrieval (pgvector + full-text search) and a LangGraph agent that detects failed queries and rewrites them.</li>
+          </ul>
+        </div>
+        <div><h4>Key trade-off</h4><p>I put reliability ahead of new features. Ingestion had to be safe to re-run and explain its own failures before any search work started. Every week I ship an increment through pull-request review and write a design defense explaining the trade-offs.</p></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><b>43</b><span>documents loaded</span></div>
+        <div class="metric"><b>0</b><span>duplicates on re-run</span></div>
+        <div class="metric"><b>25/25</b><span>missing files skipped with a logged reason, no crashes</span></div>
+        <div class="metric"><b>17</b><span>tests across 6 malformed-input cases</span></div>
+      </div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">PostgreSQL</span><span class="chip">pgvector</span><span class="chip">LangGraph</span><span class="chip">RAG</span><span class="chip">Docker</span><span class="chip">pytest</span></div>
+    </article>
+
+    <article class="case">
+      <header>
+        <div>
+          <h3>InboxIQ: AI email triage</h3>
+          <div class="meta">Personal product · 2026</div>
+        </div>
+        <span class="tag">Built end to end</span>
+      </header>
+      <div class="grid4">
+        <div><h4>Problem</h4><p>Small support teams lose time sorting a shared inbox. Urgent complaints sit next to newsletters, and every reply starts from a blank page.</p></div>
+        <div><h4>Users</h4><p>Small businesses running customer support out of a Gmail inbox.</p></div>
+        <div><h4>What it does</h4><p>Connects to Gmail and uses an LLM to label each email with one of 8 categories and 3 urgency levels, plus a one-line summary and a suggested reply.</p></div>
+        <div><h4>Product decisions</h4>
+          <ul>
+            <li><strong>User trust as a requirement:</strong> read-only Gmail access, encrypted tokens, email bodies never stored, all data deleted on request.</li>
+            <li><strong>Never trust raw model output:</strong> every response is checked against a strict schema, with a safe fallback.</li>
+            <li><strong>Guardrails in code, not just the prompt:</strong> no drafted replies to automated senders.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flow" aria-label="InboxIQ pipeline">
+        <span class="node">Gmail (read-only OAuth)</span><span class="arr">→</span>
+        <span class="node">FastAPI</span><span class="arr">→</span>
+        <span class="node hl">LLM triage</span><span class="arr">→</span>
+        <span class="node">Schema validation + guardrails</span><span class="arr">→</span>
+        <span class="node">Dashboard</span>
+      </div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Gmail API</span><span class="chip">OAuth 2.0</span><span class="chip">PostgreSQL</span><span class="chip">Pydantic</span><span class="chip">Docker</span></div>
+    </article>
+
+    <article class="case">
+      <header>
+        <div>
+          <h3>Multi-Agent Task Automation &amp; Evaluation</h3>
+          <div class="meta">Personal project · 2026 – present</div>
+        </div>
+        <span class="tag">AI evaluation</span>
+      </header>
+      <div class="grid4">
+        <div><h4>Problem</h4><p>AI agents look impressive in demos but fail quietly in use. Without a measurement, nobody can tell whether a new version is better or worse.</p></div>
+        <div><h4>Approach</h4><p>I defined success first: a repeatable evaluation that scores each run against expected results and tracks pass rates across versions.</p></div>
+        <div><h4>What I'm building</h4><p>A workflow that splits multi-step tasks across specialised agents, with tools exposed through an MCP server.</p></div>
+        <div><h4>Guardrails</h4><p>Checks catch invalid tool arguments and stop runaway retry loops before they waste time or money.</p></div>
+      </div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">LangGraph</span><span class="chip">MCP</span><span class="chip">OpenAI Agents SDK</span><span class="chip">Evals</span></div>
+    </article>
+
+    <div class="mini">
+      <article class="case">
+        <header><div><h3>Customer Complaints Analysis</h3><div class="meta">2026 · SQL, BigQuery, Looker Studio</div></div></header>
+        <p>Analysed a public dataset with millions of rows, using CTEs and window functions, to find what drove the biggest month-on-month rises in complaints. Presented the findings in a Looker Studio dashboard.</p>
+      </article>
+      <article class="case">
+        <header><div><h3>ML Model for Inhaler Efficiency</h3><div class="meta">2025 · Python, with guidance from IIT Kanpur</div></div></header>
+        <p>Built a model that predicts how well a dry powder inhaler design aerosolises. It replaces a full CFD simulation for every design iteration with a fast screening step.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="kicker">Experience</div>
+    <h2>Where I've worked</h2>
+    <p class="lede">From safety-regulated field operations to shipping AI software every week.</p>
+    <div class="tl">
+      <div class="tl-item">
+        <h3>Data &amp; AI Intern, Tellyflow Communication</h3>
+        <div class="meta">Sep 2026 – present · Prospect Intelligence project</div>
+        <ul>
+          <li>Building an internal AI product that answers business questions from 200+ public documents.</li>
+          <li>Ship weekly through pull-request review, with a written design defense each week.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <h3>Project Management Intern, Indraprastha Gas Limited</h3>
+        <div class="meta">Jun 2025 – Sep 2025 · New Delhi</div>
+        <ul>
+          <li>Tracked preventive and corrective maintenance work orders in SAP PM for CNG Operations &amp; Maintenance, checking field activity against records before it reached reporting.</li>
+          <li>Prepared the department's daily progress reports. Recognised for technical aptitude and consistency.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <h3>Girls Who Code Summer Immersion Program</h3>
+        <div class="meta">Jul 2024 – Oct 2024 · Remote · Sponsored by Morgan Stanley</div>
+        <ul>
+          <li>Took a software project from scoping to delivery in a cross-functional cohort of 10+ participants with engineer mentors.</li>
+          <li>Broke ambiguous problem statements into scoped, assignable tasks to meet monthly deliverables.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="kicker">Background</div>
+    <h2>Education, leadership &amp; skills</h2>
+    <p class="lede">An automobile engineer by training who moved into AI products.</p>
+    <div class="two">
+      <div class="card">
+        <h3>Aligarh Muslim University</h3>
+        <p>B.Tech in Automobile Engineering · CGPA 8.2/10<br><span style="color:var(--muted)">Aug 2023 – May 2027 (expected)</span></p>
+        <p style="margin-top:10px">Major project: combustion and performance of a diesel engine running on waste-plastic-oil blends with a CeO₂ nanoparticle additive. I presented the mid-semester technical review to faculty examiners.</p>
+      </div>
+      <div class="card">
+        <h3>Leadership &amp; awards</h3>
+        <ul>
+          <li><strong>Captain, basketball team.</strong> Led the team and its outreach events, including an initiative for deaf children.</li>
+          <li><strong>Oxford Royale Scholarship</strong> for academic merit.</li>
+          <li><strong>City Topper, NSTSE Olympiad</strong> (top 5,000 nationally).</li>
+        </ul>
+      </div>
+      <div class="card" style="grid-column:1/-1">
+        <h3>Skills</h3>
+        <dl class="skills">
+          <dt>Product &amp; analytics</dt>
+          <dd><div class="chips" style="margin:0"><span class="chip">Requirements scoping</span><span class="chip">Problem breakdown</span><span class="chip">Success metrics &amp; evaluation</span><span class="chip">SQL analysis</span><span class="chip">BigQuery</span><span class="chip">Looker Studio</span><span class="chip">pandas</span></div></dd>
+          <dt>AI / ML</dt>
+          <dd><div class="chips" style="margin:0"><span class="chip">RAG</span><span class="chip">Hybrid retrieval</span><span class="chip">LLM evaluation</span><span class="chip">LangGraph</span><span class="chip">OpenAI Agents SDK</span><span class="chip">MCP</span><span class="chip">ML modelling</span></div></dd>
+          <dt>Engineering</dt>
+          <dd><div class="chips" style="margin:0"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">C++</span><span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">Docker</span><span class="chip">Git &amp; GitHub</span><span class="chip">pytest</span></div></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Let's talk.</h2>
+    <p>I'm looking for Associate Product Manager roles starting 2027. The fastest way to reach me is by email.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:aminaatmit@gmail.com">aminaatmit@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/amina-fatima-760787227" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/aminaatmit-cpu" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Amina Fatima · Aligarh, India</span>
+    <button class="theme-btn" id="themeBtn" type="button">Toggle theme</button>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  try{var s=localStorage.getItem('theme'); if(s) root.setAttribute('data-theme',s);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
