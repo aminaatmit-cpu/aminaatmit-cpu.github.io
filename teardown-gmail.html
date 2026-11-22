@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gmail Deadline Teardown · Amina Fatima</title>
+<meta name="description" content="Product teardown: how Gmail sorts mail by who sent it, why time-bound action emails get missed during placement season, a scoped fix, and how to measure it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --ink:#1c1b1a; --muted:#5f5b56; --line:#e7e2db;
+  --accent:#1a5fd6; --accent-soft:#e8effc; --chip:#f2eee8; --good:#1f7a4d; --warn:#9a5b00;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413; --surface:#1d1c1b; --ink:#f1eee9; --muted:#a9a49d; --line:#2f2d2a;
+    --accent:#7aa7ff; --accent-soft:#1e2a40; --chip:#262523; --good:#5ec48f; --warn:#f0b45a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1d1c1b; --ink:#f1eee9; --muted:#a9a49d; --line:#2f2d2a;
+  --accent:#7aa7ff; --accent-soft:#1e2a40; --chip:#262523; --good:#5ec48f; --warn:#f0b45a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.2;margin:0}
+nav{border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+nav .brand{font-family:Fraunces,Georgia,serif;font-weight:600;color:var(--ink)}
+nav a.back{font-size:.92rem;color:var(--muted)}
+header{padding:48px 0 8px}
+.kicker{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+h1{font-size:clamp(1.9rem,5vw,2.6rem);letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:1.08rem;margin:14px 0 0}
+.tldr{background:var(--accent-soft);border-radius:14px;padding:16px 18px;margin:28px 0 8px;font-size:.98rem}
+.tldr b{color:var(--accent)}
+section{padding:26px 0 6px}
+h2{font-size:1.35rem;margin-bottom:10px}
+h2 .n{color:var(--accent);margin-right:8px}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin-bottom:6px}
+.muted{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.mock{border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.9rem;background:var(--surface)}
+.mock .bar{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--muted);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.mock .row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.mock .row:last-child{border-bottom:0}
+.mock .due{color:var(--warn);font-weight:600;white-space:nowrap}
+.mock .acts{display:flex;gap:6px}
+.mock .acts span{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.8rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:6px 0 12px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tablewrap{overflow-x:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+.two .card{margin:0}
+.two h3{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;font-family:Inter,system-ui,sans-serif}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:22px 0 40px;font-size:.86rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="./">Amina Fatima</a>
+  <a class="back" href="./#work">← Back to portfolio</a>
+</div></nav>
+
+<main class="wrap">
+<header>
+  <div class="kicker">Product teardown · Gmail · November 2026</div>
+  <h1>The deadline that lands in Updates</h1>
+  <p class="sub">Gmail sorts mail by <em>who sent it</em>. During placement season, students need it sorted by <em>what they have to do, and by when</em>.</p>
+  <div class="tldr"><b>TL;DR</b> Time-bound action emails (test links, registration cut-offs) often come from bulk or automated senders, so they look like updates rather than personal mail. I propose a small, high-precision <b>"Due soon"</b> strip above the inbox, measured by whether more of these emails get acted on before their deadline.</div>
+</header>
+
+<section>
+  <h2><span class="n">01</span>Who this is for</h2>
+  <p><b>Final-year engineering students in Indian colleges during placement and internship season</b>, roughly August to March. In this window one inbox mixes:</p>
+  <ul>
+    <li>placement-cell circulars sent to hundreds of students at once ("register for the X drive by Friday 5 pm"),</li>
+    <li>assessment invites from applicant-tracking systems ("your test link expires in 48 hours"),</li>
+    <li>job-platform alerts, college newsletters, and promotions.</li>
+  </ul>
+  <p>Only the first two carry a deadline, and missing one usually can't be undone: a closed registration or an expired test link means a lost opportunity, not a late reply.</p>
+</section>
+
+<section>
+  <h2><span class="n">02</span>What Gmail already does well</h2>
+  <p><b>Category tabs</b> keep promotions and social mail out of the main inbox. <b>Nudges</b> bring back mail you may have forgotten to answer. <b>Search</b> is excellent once you know what to look for. These solve sorting and replying. They don't solve <em>"what am I about to miss?"</em></p>
+</section>
+
+<section>
+  <h2><span class="n">03</span>The friction</h2>
+  <p>Tabs classify by <b>sender type</b>: bulk, automated and mailing-list mail goes to Updates or Promotions. That's usually right, but the emails this user can't afford to miss are exactly the ones sent in bulk:</p>
+  <ul>
+    <li>A placement circular to 500 students looks like a mailing list.</li>
+    <li>A test invite from a recruiting platform looks like an automated notification.</li>
+  </ul>
+  <p>The deadline is in the body, not the sender or subject line, so nothing in the inbox view signals it. Nudges are built for replies and arrive after days, which is too late for a 48-hour test link.</p>
+  <div class="card">
+    <p style="margin:0"><b>Evidence from my own build.</b> I tested my email-triage tool, <a href="https://github.com/aminaatmit-cpu" target="_blank" rel="noopener">InboxIQ</a>, on 64 hand-labelled emails. Its biggest weakness was this same line between "sent by a system" and "needs action": with vague definitions, only 6 of 21 person-written, non-customer emails were sorted correctly. Defining categories by <em>intent</em> instead raised it to 19 of 21, and overall accuracy from 91.7% to 99.0%, using a small model at about 1.3 s per email. <span class="muted">This shows intent-based sorting is feasible. It doesn't prove the user problem, which section 06 tests.</span></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">04</span>Proposed fix: a "Due soon" strip</h2>
+  <p>A slim strip above the inbox, visible from every tab, that lists emails asking the user to <b>do something by a stated date</b>.</p>
+  <div class="mock" aria-label="Mock-up of the Due soon strip">
+    <div class="bar">Due soon · 2</div>
+    <div class="row"><span>Placement Cell: register for the campus drive</span><span class="due">Closes tomorrow, 5 pm</span><span class="acts"><span>Open</span><span>Add to Calendar</span><span>Done</span></span></div>
+    <div class="row"><span>Online assessment link: Product Analyst role</span><span class="due">Expires in 31 h</span><span class="acts"><span>Open</span><span>Add to Calendar</span><span>Done</span></span></div>
+  </div>
+  <p style="margin-top:14px"><b>v1 scope, chosen on purpose:</b></p>
+  <ul>
+    <li><b>Only explicit deadlines</b> ("by 5 pm Friday", "expires in 48 hours"). No guessing at implied urgency.</li>
+    <li><b>At most 3 items</b>, and an item leaves once its deadline passes or the user marks it done.</li>
+    <li><b>"Not a deadline" feedback</b> on every item, to catch mistakes and improve the model.</li>
+    <li><b>Respects the existing smart-features setting</b>; no new data collection.</li>
+  </ul>
+  <div class="two">
+    <div class="card"><h3>Trade-off I'm accepting</h3><p style="margin:0"><b>Precision over recall.</b> One wrong "urgent" item teaches people to ignore the strip. Missing a few deadlines in v1 is better than a noisy strip nobody trusts.</p></div>
+    <div class="card"><h3>Not in v1</h3><p style="margin:0">Auto-replies, task lists, deadlines the user would have to infer, and languages other than English. All worth exploring once precision is proven.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">05</span>How I'd measure success</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Type</th><th>Metric</th><th>Target to ship</th></tr></thead>
+    <tbody>
+      <tr><td><b>North star</b></td><td>Share of deadline emails opened or acted on before their deadline</td><td>Clear lift vs. control</td></tr>
+      <tr><td>Quality</td><td>Precision: items not marked "Not a deadline"</td><td>≥ 90%</td></tr>
+      <tr><td>Engagement</td><td>Strip items opened, added to Calendar or marked done</td><td>Rising week over week, not just a novelty spike</td></tr>
+      <tr><td>Guardrail</td><td>Primary-inbox engagement, smart-feature opt-outs, "hide strip" rate</td><td>No meaningful drop or rise</td></tr>
+      <tr><td>Guardrail</td><td>Inbox load time</td><td>No measurable regression</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Rollout:</b> internal dogfood first to tune precision, then an A/B test on opted-in users in India during peak season, so a 4-week test covers real deadlines.</p>
+</section>
+
+<section>
+  <h2><span class="n">06</span>How I'd check the problem is real before building</h2>
+  <p>This is a hypothesis. The cheapest test: ask 8–10 final-year students to export the subject lines and tabs of one week of placement email. Then count how many deadline-bearing emails landed outside Primary, and how many were opened only after the deadline.</p>
+  <p><b>Kill criterion:</b> if fewer than about 1 in 10 deadline emails land outside Primary, the problem is smaller than I think, and a lighter fix (deadline-aware Nudges) would beat a new UI surface.</p>
+</section>
+</main>
+
+<footer><div class="wrap">
+  Written by Amina Fatima as an independent exercise. I don't work at Google; this is based on Gmail's public behaviour, and the user problem is a hypothesis to validate, not a research finding.
+  · <a href="./">Portfolio</a> · <a href="https://www.linkedin.com/in/amina-fatima-760787227" target="_blank" rel="noopener">LinkedIn</a>
+</div></footer>
+
+</body>
+</html>
